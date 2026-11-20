@@ -1,0 +1,1507 @@
+/* =========================
+   1. 基础变量
+   ========================= */
+   :root {
+    --menu-width: 260px;
+    --menu-collapsed: 88px;
+
+    --ink: #1f2937;
+    --muted: #5f6673;
+    --line: rgba(255, 255, 255, 0.62);
+
+    --glass: rgba(255, 255, 255, 0.52);
+    --glass-strong: rgba(255, 255, 255, 0.74);
+
+    --radius-xl: 36px;
+    --radius-lg: 24px;
+    --radius-md: 16px;
+
+    --shadow-lg: 0 30px 90px rgba(31, 41, 55, 0.068);
+    --shadow-sm: 0 12px 30px rgba(31, 41, 55, 0.10);
+
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+    --page-bg: url("../assets/bg1.jpg");
+    --text-halo:
+        -0.5px -0.5px 0 rgba(255, 255, 255, 0.85),
+         0.5px -0.5px 0 rgba(255, 255, 255, 0.85),
+        -0.5px  0.5px 0 rgba(255, 255, 255, 0.85),
+         0.5px  0.5px 0 rgba(255, 255, 255, 0.85),
+         0 0 8px rgba(255, 255, 255, 0.55),
+         0 1px 2px rgba(255, 255, 255, 0.55);
+
+    --text-halo-strong:
+        -1px -1px 0 rgba(255, 255, 255, 0.82),
+         1px -1px 0 rgba(255, 255, 255, 0.82),
+        -1px  1px 0 rgba(255, 255, 255, 0.82),
+         1px  1px 0 rgba(255, 255, 255, 0.82),
+         0 0 16px rgba(255, 255, 255, 0.55),
+         0 2px 3px rgba(255, 255, 255, 0.50);
+
+    --text-halo-soft:
+        -0.5px -0.5px 0 rgba(255, 255, 255, 0.70),
+         0.5px -0.5px 0 rgba(255, 255, 255, 0.70),
+        -0.5px  0.5px 0 rgba(255, 255, 255, 0.70),
+         0.5px  0.5px 0 rgba(255, 255, 255, 0.70),
+         0 0 6px rgba(255, 255, 255, 0.45);
+}
+
+/* =========================
+   2. 基础重置
+   ========================= */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--ink);
+    background: #cfd6dd;
+    font-family:
+            "Inter",
+            "Noto Sans SC",
+            "PingFang SC",
+            "Microsoft YaHei",
+            system-ui,
+            sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    border: 0;
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+::selection {
+    color: #ffffff;
+    background: #1f2937;
+}
+
+:focus-visible {
+    outline: 2px solid #1f2937;
+    outline-offset: 3px;
+}
+
+/* =========================
+   3. 模糊背景
+   ========================= */
+.backdrop {
+    position: fixed;
+    inset: -48px;
+    z-index: 0;
+
+    background-image:
+            var(--page-bg),
+            linear-gradient(135deg, #a9c0d8 0%, #e6d7c9 55%, #c9b8a8 100%);
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    filter: blur(1.2px) brightness(1.02) saturate(1.03);
+    transform: scale(1.02);
+}
+
+.backdrop::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+                circle at 50% 38%,
+                rgba(255, 255, 255, 0.02),
+                rgba(255, 255, 255, 0.10)
+        ),
+        linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.08),
+                rgba(255, 255, 255, 0.02)
+        );
+}
+
+/* =========================
+   4. 页面主体
+   ========================= */
+.app {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+}
+
+/* =========================
+   5. 左侧 LayoutMenu
+   ========================= */
+.layout-menu {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 40;
+
+    display: flex;
+    flex-direction: column;
+
+    width: var(--menu-width);
+    padding: 28px 18px 24px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.20),
+                rgba(255, 255, 255, 0.10)
+        );
+    border-right: 1px solid rgba(255, 255, 255, 0.269);
+    box-shadow: 14px 0 44px rgba(31, 41, 55, 0.08);
+
+    -webkit-backdrop-filter: blur(4px) saturate(115%);
+    backdrop-filter: blur(4px) saturate(115%);
+
+    transition:
+            width 0.35s var(--ease),
+            padding 0.35s var(--ease),
+            background 0.25s ease;
+}
+
+/* 菜单顶部 */
+.menu-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.brand-mark {
+    display: grid;
+    place-items: center;
+
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+
+    color: #ffffff;
+    background: #1f2937;
+    border-radius: 12px;
+
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+
+    box-shadow: 0 8px 18px rgba(31, 41, 55, 0.18);
+}
+
+.brand-name {
+    overflow: hidden;
+
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+
+    text-shadow: var(--text-halo);
+}
+
+.menu-toggle {
+    display: grid;
+    place-items: center;
+
+    width: 38px;
+    height: 38px;
+    margin-left: auto;
+    flex: 0 0 38px;
+
+    color: #374151;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 12px;
+
+    transition:
+            background 0.2s ease,
+            transform 0.2s ease;
+}
+
+.menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.14);
+    transform: translateY(-1px);
+}
+
+.menu-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+}
+
+/* 菜单项 */
+.menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    margin-top: 38px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.menu-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    width: 100%;
+    padding: 13px 14px;
+
+    color: #4b5563;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+
+    text-align: left;
+    white-space: nowrap;
+
+    transition:
+            color 0.2s ease,
+            background 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.menu-item:hover {
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.212);
+    transform: translateX(2px);
+}
+
+.menu-item.is-active {
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.26);
+    border-color: rgba(255, 255, 255, 0.34);
+    box-shadow:
+            inset 3px 0 0 var(--ink),
+            0 8px 20px rgba(31, 41, 55, 0.06);
+}
+
+.menu-icon {
+    display: grid;
+    place-items: center;
+
+    width: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+}
+
+.menu-icon svg {
+    width: 21px;
+    height: 21px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.menu-item[data-page="more"] .menu-icon svg circle {
+    fill: currentColor;
+    stroke: none;
+}
+
+.menu-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* 菜单底部 */
+.menu-foot {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.menu-foot-text {
+    display: block;
+    overflow: hidden;
+
+    color: rgba(75, 85, 99, 0.72);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* 菜单收起状态：由 JS 给 body 加 menu-collapsed */
+body.menu-collapsed {
+    --menu-width: var(--menu-collapsed);
+}
+
+body.menu-collapsed .layout-menu {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+body.menu-collapsed .menu-head {
+    flex-direction: column;
+    gap: 14px;
+}
+
+body.menu-collapsed .menu-toggle {
+    margin-left: 0;
+}
+
+body.menu-collapsed .brand-name,
+body.menu-collapsed .menu-label,
+body.menu-collapsed .menu-foot-text {
+    display: none;
+}
+
+body.menu-collapsed .menu-nav {
+    margin-top: 26px;
+}
+
+body.menu-collapsed .menu-item {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+body.menu-collapsed .menu-item:hover {
+    transform: none;
+}
+
+body.menu-collapsed .menu-foot {
+    display: flex;
+    justify-content: center;
+}
+
+body.menu-collapsed .menu-foot::after {
+    content: "·";
+    color: rgba(75, 85, 99, 0.48);
+    font-size: 24px;
+    line-height: 1;
+}
+
+/* =========================
+   6. 右侧主区域
+   ========================= */
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100vh;
+    margin-left: var(--menu-collapsed);
+    padding: clamp(18px, 3vw, 42px);
+}
+
+.main-frame {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: min(1120px, 100%);
+    min-height: calc(100vh - 2 * clamp(18px, 3vw, 42px));
+    padding: clamp(42px, 6vw, 84px) clamp(24px, 5vw, 72px);
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.14),
+                rgba(255, 255, 255, 0.04)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.30);
+    border-radius: clamp(26px, 3vw, 40px);
+    box-shadow:
+            var(--shadow-lg),
+            inset 0 1px 0 rgba(255, 255, 255, 0.493);
+
+    -webkit-backdrop-filter: blur(3px) saturate(110%);
+    backdrop-filter: blur(3px) saturate(110%);
+}
+
+/* 边框内部的一层柔光 */
+.main-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+            radial-gradient(
+                    circle at 50% 0%,
+                    rgba(255, 255, 255, 0.116),
+                    transparent 42%
+            );
+
+    pointer-events: none;
+}
+
+/* =========================
+   7. 个人信息
+   ========================= */
+.profile {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    max-width: 760px;
+
+    text-align: center;
+}
+
+.avatar-shell {
+    width: clamp(152px, 18vw, 210px);
+    aspect-ratio: 1;
+
+    padding: 6px;
+
+    background: rgba(255, 255, 255, 0.58);
+    border: 1px solid rgba(255, 255, 255, 0.461);
+    border-radius: 50%;
+    box-shadow:
+            0 24px 54px rgba(31, 41, 55, 0.22),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.eyebrow {
+    margin: 30px 0 0;
+
+    color: rgba(31, 41, 55, 0.72);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+
+    text-shadow: var(--text-halo);
+}
+
+.profile-name {
+    margin: 10px 0 0;
+
+    font-size: clamp(38px, 5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+
+    -webkit-text-stroke: 0.35px rgba(255, 255, 255, 0.52);
+    paint-order: stroke fill;
+
+    text-shadow: var(--text-halo-strong);
+}
+
+.profile-subtitle {
+    margin: 12px 0 0;
+
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+
+    text-shadow: var(--text-halo-soft);
+}
+
+.bio-card {
+    width: min(680px, 100%);
+    margin-top: 30px;
+    padding: clamp(24px, 4vw, 38px);
+
+    color: #374151;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: var(--radius-lg);
+    box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.7),
+            0 16px 40px rgba(31, 41, 55, 0.06);
+
+    text-align: left;
+    line-height: 1.9;
+    font-size: clamp(14px, 1.3vw, 16px);
+    font-weight: 500;
+
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+
+    text-shadow: var(--text-halo-soft);
+}
+
+.bio-card p {
+    margin: 0;
+    text-shadow:
+        0 1px 16px rgba(255, 255, 255, 0.55),
+        0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+/* =========================
+   8. 背景切换圆点
+   ========================= */
+.bg-switcher {
+    position: fixed;
+    top: 50%;
+    right: clamp(12px, 2vw, 24px);
+    z-index: 60;
+
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+
+    transform: translateY(-50%);
+}
+
+.bg-dot {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(31, 41, 55, 0.34);
+    border-radius: 50%;
+
+    transition:
+            background 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.bg-dot:hover {
+    transform: scale(1.18);
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.bg-dot.is-active {
+    background: var(--ink);
+    border-color: var(--ink);
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.34);
+}
+
+/* =========================
+   9. 提示
+   ========================= */
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    z-index: 100;
+
+    max-width: calc(100vw - 32px);
+    padding: 12px 18px;
+
+    color: #ffffff;
+    background: rgba(31, 41, 55, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.28);
+
+    font-size: 14px;
+    text-align: center;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 12px);
+
+    transition:
+            opacity 0.25s ease,
+            transform 0.25s ease;
+}
+
+.toast.is-visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/* =========================
+   10. 窄屏内容适配
+   只改内容尺寸，不隐藏菜单，不移动圆点
+   ========================= */
+@media (max-width: 680px) {
+    :root {
+        --menu-collapsed: 76px;
+    }
+
+    .main {
+        padding: 12px;
+    }
+
+    .main-frame {
+        min-height: calc(100vh - 24px);
+        padding: 56px 22px 76px;
+        border-radius: 26px;
+    }
+
+    .profile-name {
+        font-size: clamp(36px, 11vw, 46px);
+    }
+
+    .bio-card {
+        margin-top: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-frame {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .avatar-shell {
+        width: 148px;
+    }
+
+    .eyebrow {
+        margin-top: 24px;
+    }
+
+    .profile-subtitle {
+        font-size: 14px;
+    }
+}
+
+/* =========================
+   11. 减少动效偏好
+   ========================= */
+/* @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+} */
+/* =========================
+   音乐电台
+   ========================= */
+   .music-page {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: clamp(24px, 4vw, 56px);
+    border-radius: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.22),
+            rgba(255, 255, 255, 0.06)
+        );
+    box-shadow:
+        0 30px 80px rgba(8, 25, 55, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(18px) saturate(120%);
+    -webkit-backdrop-filter: blur(18px) saturate(120%);
+    color: #10233e;
+    text-shadow: none;
+}
+
+.music-page[hidden] {
+    display: none !important;
+}
+
+.music-head {
+    margin-bottom: clamp(20px, 3vw, 34px);
+}
+
+.music-head p {
+    margin: 0 0 8px;
+    color: rgba(16, 35, 62, 0.58);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+}
+
+.music-head h2 {
+    margin: 0;
+    color: #10233e;
+    font-size: clamp(26px, 3vw, 38px);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+}
+
+/* 宽版：转盘在左，信息在右，音量在最右 */
+.music-stage {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr) 56px;
+    grid-template-areas:
+        "turntable meta volume"
+        "controls progress volume";
+    column-gap: clamp(24px, 4vw, 56px);
+    row-gap: 24px;
+    align-items: center;
+}
+
+/* 转盘：最大 260，不再放大 */
+.turntable {
+    grid-area: turntable;
+    position: relative;
+    width: 100%;
+    max-width: 260px;
+    aspect-ratio: 1;
+    justify-self: center;
+    filter: drop-shadow(0 22px 30px rgba(7, 20, 45, 0.26));
+}
+
+.turntable::before {
+    content: "";
+    position: absolute;
+    inset: -7%;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.28),
+        transparent 68%
+    );
+    z-index: -1;
+}
+
+.vinyl {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            #181818 0 23%,
+            transparent 23.5%
+        ),
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            #0c0c0c 0 2px,
+            #1e1e1e 2px 4px,
+            #101010 4px 7px
+        );
+    box-shadow:
+        0 0 0 10px rgba(10, 15, 25, 0.18),
+        0 22px 38px rgba(3, 10, 24, 0.32),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+    /* 外圈不转，只转内层 label */
+}
+/* .vinyl.is-playing.vinyl-label   ❌ 同一个元素
+.vinyl.is-playing .vinyl-label  ✅ 后代元素 */
+.vinyl.is-playing  .vinyl-label{
+    animation-play-state: running;
+}
+
+.vinyl::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background:
+        linear-gradient(
+            125deg,
+            rgba(255, 255, 255, 0.20) 0%,
+            transparent 18%,
+            transparent 55%,
+            rgba(255, 255, 255, 0.06) 78%,
+            transparent 100%
+        );
+    pointer-events: none;
+}
+
+/* 封面就是黑胶中心，跟着 .vinyl 一起转 */
+.vinyl-label {
+    position: absolute;
+    inset: 29%;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #0b1220;
+    box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.10),
+        inset 0 0 22px rgba(0, 0, 0, 0.45);
+
+    transform-origin: center;
+    animation: vinyl-spin 18s linear infinite;
+    animation-play-state: paused;
+}
+
+.vinyl-label::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 8%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #0a0d14;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.18);
+    z-index: 2;
+}
+
+#musicCover {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 右侧文字 */
+.music-meta {
+    grid-area: meta;
+    align-self: start;
+    min-width: 0;
+}
+
+#musicTitle {
+    display: block;
+    overflow: hidden;
+    color: #10233e;
+    font-size: clamp(26px, 3.4vw, 44px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#musicArtist {
+    display: block;
+    overflow: hidden;
+    margin-top: 10px;
+    color: rgba(16, 35, 62, 0.62);
+    font-size: 14px;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 播放按钮：放在转盘下面 */
+.music-controls {
+    grid-area: controls;
+    align-self: end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 0;
+}
+
+.music-controls button {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.48);
+    color: #10233e;
+    font-size: 16px;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.music-controls button:hover {
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 10px 24px rgba(8, 25, 55, 0.12);
+    transform: translateY(-2px);
+}
+
+.music-controls #playBtn {
+    width: 60px;
+    height: 60px;
+    border-color: rgba(255, 255, 255, 0.35);
+    background: #172a4a;
+    color: #ffffff;
+    font-size: 19px;
+    box-shadow: 0 16px 30px rgba(8, 25, 55, 0.24);
+}
+
+.music-controls #playBtn:hover {
+    background: #203a63;
+}
+
+/* 进度：放在右侧文字下面 */
+.music-progress,
+.music-volume {
+    display: grid;
+    align-items: center;
+    gap: 12px;
+}
+
+.music-progress {
+    grid-area: progress;
+    align-self: end;
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
+    margin-top: 0;
+}
+
+.music-progress time,
+.music-volume span {
+    color: rgba(16, 35, 62, 0.62);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* 音量：右边竖排 */
+.music-volume {
+    grid-area: volume;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.music-volume #volumeValue {
+    order: -1;
+    font-size: 11px;
+    text-align: center;
+}
+
+.music-volume #volume {
+    order: 0;
+}
+
+.music-volume #muteBtn {
+    order: 1;
+}
+
+.music-page input[type="range"] {
+    width: 100%;
+    height: 4px;
+    margin: 0;
+    border-radius: 999px;
+    background: rgba(16, 35, 62, 0.18);
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+/* 竖排音量条 */
+.music-volume input[type="range"] {
+    width: 4px;
+    height: 150px;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    background: rgba(16, 35, 62, 0.18);
+}
+
+.music-page input[type="range"]::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    background: #172a4a;
+    box-shadow: 0 2px 8px rgba(8, 25, 55, 0.24);
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.music-page input[type="range"]::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    background: #172a4a;
+    box-shadow: 0 2px 8px rgba(8, 25, 55, 0.24);
+}
+
+#muteBtn {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    color: #10233e;
+    cursor: pointer;
+}
+
+#muteBtn.is-muted {
+    opacity: 0.45;
+}
+
+/* 列表 */
+.track-list {
+    max-height: 340px;
+    margin-top: clamp(26px, 4vw, 38px);
+    padding: 8px 0 0;
+    overflow-y: auto;
+    border-top: 1px solid rgba(16, 35, 62, 0.12);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(16, 35, 62, 0.28) transparent;
+}
+
+.track-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.track-list::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(16, 35, 62, 0.24);
+}
+
+.track-item {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: center;
+    padding: 13px 14px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease;
+}
+
+.track-item:hover {
+    background: rgba(255, 255, 255, 0.38);
+}
+
+.track-item.is-active {
+    background: rgba(255, 255, 255, 0.58);
+    box-shadow: inset 3px 0 0 #172a4a;
+}
+
+.track-index {
+    color: rgba(16, 35, 62, 0.44);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.08em;
+}
+
+.track-meta {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.track-title {
+    overflow: hidden;
+    color: #10233e;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.track-artist {
+    overflow: hidden;
+    color: rgba(16, 35, 62, 0.52);
+    font-size: 11px;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.track-duration {
+    color: rgba(16, 35, 62, 0.45);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+}
+
+@keyframes vinyl-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 窄版：转盘和竖音量并排，其他全部单列 */
+@media (max-width: 760px) {
+    .music-page {
+        padding: 24px 18px;
+        border-radius: 26px;
+    }
+
+    .music-head {
+        margin-bottom: 24px;
+        text-align: center;
+    }
+
+    .music-stage {
+        grid-template-columns: minmax(0, 1fr) 52px;
+        grid-template-areas:
+            "turntable volume"
+            "meta meta"
+            "controls controls"
+            "progress progress";
+        column-gap: 16px;
+        row-gap: 18px;
+        align-items: center;
+    }
+
+    .turntable {
+        max-width: 220px;
+        justify-self: center;
+    }
+
+    .music-meta {
+        align-self: center;
+        text-align: center;
+    }
+
+    .music-controls {
+        align-self: auto;
+        justify-content: center;
+    }
+
+    .music-progress {
+        align-self: auto;
+    }
+
+    .music-volume {
+        height: 220px;
+        justify-self: center;
+        align-self: center;
+    }
+
+    .music-volume input[type="range"] {
+        height: 140px;
+    }
+
+    .track-list {
+        max-height: 300px;
+        margin-top: 24px;
+    }
+}
+
+/* 手机更窄，只缩字号和间距，不改两栏关系 */
+@media (max-width: 460px) {
+    .music-page {
+        padding: 20px 14px;
+    }
+
+    #musicTitle {
+        font-size: 26px;
+    }
+
+    .music-volume {
+        height: 210px;
+    }
+
+    .music-volume input[type="range"] {
+        height: 130px;
+    }
+
+    .track-item {
+        grid-template-columns: 34px minmax(0, 1fr) auto;
+        padding: 11px 10px;
+    }
+}
+/* 播放器 */
+/* =========================
+   全局迷你播放器
+   ========================= */
+   .mini-player {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    z-index: 120;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 132px 170px 76px;
+    grid-template-areas: "meta controls progress volume";
+    align-items: center;
+    gap: 12px;
+
+    width: min(620px, calc(100vw - 32px));
+    height: 64px;
+    padding: 10px 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 20px;
+    background: rgba(14, 30, 54, 0.84);
+    color: #ffffff;
+
+    box-shadow: 0 18px 48px rgba(3, 10, 24, 0.35);
+    backdrop-filter: blur(18px) saturate(130%);
+    -webkit-backdrop-filter: blur(18px) saturate(130%);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 16px);
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        width 0.25s ease,
+        height 0.25s ease,
+        border-radius 0.25s ease;
+}
+
+.mini-player.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+/* 收起：只剩一个圆形封面 */
+.mini-player.is-collapsed {
+    display: block;
+    width: 66px;
+    height: 66px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: 0 12px 32px rgba(3, 10, 24, 0.32);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.mini-player.is-collapsed .mini-handle {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.mini-player.is-collapsed .mini-cover {
+    width: 100%;
+    height: 100%;
+    flex: 0 0 100%;
+    border: 2px solid rgba(255, 255, 255, 0.78);
+    border-radius: 50%;
+}
+
+.mini-player.is-collapsed .mini-grip,
+.mini-player.is-collapsed .mini-meta,
+.mini-player.is-collapsed .mini-controls,
+.mini-player.is-collapsed .mini-extra {
+    display: none;
+}
+
+/* 展开：左侧信息、中间控制、固定进度、右侧音量 */
+.mini-handle {
+    grid-area: meta;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+}
+.mini-player.is-dragging {
+    transition: none;
+}
+
+.mini-player.is-dragging .mini-handle {
+    cursor: grabbing;
+}
+
+.mini-grip {
+    width: 3px;
+    height: 24px;
+    flex: 0 0 3px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.mini-cover {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.12);
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.mini-meta {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.mini-meta strong,
+.mini-meta small {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mini-meta strong {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.mini-meta small {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 11px;
+}
+
+/* 中间三个键固定在固定宽度区域里 */
+.mini-controls {
+    grid-area: controls;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    gap: 4px;
+    width: 132px;
+}
+
+.mini-controls button,
+#miniMute {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.10);
+    color: #ffffff;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.mini-controls button:hover,
+#miniMute:hover {
+    background: rgba(255, 255, 255, 0.20);
+}
+
+.mini-controls #miniPlay {
+    width: 38px;
+    height: 38px;
+    background: #ffffff;
+    color: #172a4a;
+    font-size: 14px;
+}
+
+.mini-controls #miniPlay:hover {
+    background: #eaf1ff;
+}
+
+/* 让进度和音量直接进入外层 grid */
+.mini-extra {
+    display: contents;
+}
+
+#miniProgress {
+    grid-area: progress;
+    width: 100%;
+    min-width: 0;
+}
+
+.mini-volume {
+    grid-area: volume;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    width: 76px;
+}
+
+#miniMute {
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    background: transparent;
+    font-size: 14px;
+}
+
+#miniVolume {
+    width: 44px;
+    flex: 0 0 44px;
+}
+
+.mini-player input[type="range"] {
+    height: 4px;
+    margin: 0;
+    accent-color: #ffffff;
+    cursor: pointer;
+}
+
+/* 窄屏：保留固定进度，隐藏音量，避免长度被挤压 */
+@media (max-width: 560px) {
+    .mini-player:not(.is-collapsed) {
+        grid-template-columns: minmax(0, 1fr) 112px 110px;
+        grid-template-areas: "meta controls progress";
+        width: calc(100vw - 24px);
+        gap: 12px;
+    }
+
+    .mini-volume {
+        display: none;
+    }
+}
+
+@media (max-width: 680px) {
+    .mini-player {
+        bottom: 10px;
+    }
+
+    .mini-player.is-collapsed {
+        width: 62px;
+        height: 62px;
+    }
+}
+

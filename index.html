@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="NyaPC 的个人主页" />
+    <meta name="theme-color" content="#f4f1ea" />
+    <title>NyaPC | 个人主页</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <!-- 背景图 + 模糊层 -->
+    <div class="backdrop" id="backdrop" aria-hidden="true"></div>
+
+    <div class="app">
+
+        <!-- 左侧 LayoutMenu -->
+        <aside class="layout-menu" id="layoutMenu" aria-label="主导航">
+
+            <div class="menu-head">
+                <a class="brand" href="#home" aria-label="返回个人首页">
+                    <span class="brand-mark">N</span>
+                    <span class="brand-name">NyaPC</span>
+                </a>
+
+                <button
+                    class="menu-toggle"
+                    id="menuToggle"
+                    type="button"
+                    aria-label="收起菜单"
+                    aria-expanded="true"
+                    aria-controls="layoutMenu">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 7h16M4 12h16M4 17h16" />
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="menu-nav">
+
+                <button
+                    class="menu-item is-active"
+                    type="button"
+                    data-page="home"
+                    aria-current="page">
+
+                    <span class="menu-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 10.5 12 3l9 7.5" />
+                            <path d="M5 9.5V21h14V9.5" />
+                            <path d="M9 21v-6h6v6" />
+                        </svg>
+                    </span>
+
+                    <span class="menu-label">个人首页</span>
+                </button>
+
+                <button
+                    class="menu-item"
+                    type="button"
+                    data-page="music">
+
+                    <span class="menu-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M9 18V5l12-2v13" />
+                            <circle cx="6" cy="18" r="3" />
+                            <circle cx="18" cy="16" r="3" />
+                        </svg>
+                    </span>
+
+                    <span class="menu-label">音乐电台</span>
+                </button>
+
+                <button
+                    class="menu-item"
+                    type="button"
+                    data-page="travel">
+
+                    <span class="menu-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="m3 11 18-8-8 18-2-8-8-2Z" />
+                        </svg>
+                    </span>
+
+                    <span class="menu-label">旅行伙伴</span>
+                </button>
+
+                <button
+                    class="menu-item"
+                    type="button"
+                    data-page="diary">
+
+                    <span class="menu-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M6 3h12a2 2 0 0 1 2 2v16H8a2 2 0 0 1-2-2V3Z" />
+                            <path d="M6 17h14" />
+                            <path d="M10 7h6" />
+                        </svg>
+                    </span>
+
+                    <span class="menu-label">项目日记</span>
+                </button>
+
+                <button
+                    class="menu-item"
+                    type="button"
+                    data-page="more">
+
+                    <span class="menu-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="5" cy="12" r="1.5" />
+                            <circle cx="12" cy="12" r="1.5" />
+                            <circle cx="19" cy="12" r="1.5" />
+                        </svg>
+                    </span>
+
+                    <span class="menu-label">更多内容，敬请期待...</span>
+                </button>
+
+            </nav>
+
+            <div class="menu-foot">
+                <span class="menu-foot-text">© 2026 NyaPC</span>
+            </div>
+
+        </aside>
+
+        <!-- 右侧主内容 -->
+        <main class="main" id="home">
+
+            <div class="main-frame">
+
+                <section class="profile" aria-labelledby="profileName">
+
+                    <div class="avatar-shell">
+                        <img
+                            class="avatar"
+                            src="assets/avatar.jpg"
+                            alt="NyaPC 的头像" />
+                    </div>
+
+                    <p class="eyebrow">PERSONAL SPACE</p>
+
+                    <h1 class="profile-name" id="profileName">NyaPC</h1>
+
+                    <p class="profile-subtitle">
+                        项目 · 音乐 · 旅行 · 日常
+                    </p>
+
+                    <div class="bio-card">
+                        <p>
+                            Hello，我是 NyaPC。这里是我的个人空间，
+                            用来记录做过的项目、喜欢的音乐、去过的地方，
+                            以及一些还在慢慢生长的想法。
+                        </p>
+                    </div>
+
+                </section>
+                <!-- 音乐电台页面 -->
+                <section class="page music-page" id="musicPage" hidden>
+
+                    <div class="music-head">
+                        <p class="music-eyebrow">DEEP SOUND</p>
+                        <h2>音乐电台</h2>
+                        <p>把喜欢的歌，留在这里。</p>
+                    </div>
+
+                    <div class="music-stage">
+
+                        <!-- 唱片 -->
+                        <div class="turntable" id="turntable">
+                            <div class="vinyl" id="vinyl">
+                                <div class="vinyl-label" id="vinylLabel">
+                                    <img
+                                        class="music-cover"
+                                        id="musicCover"
+                                        alt="封面"
+                                    >
+                                </div>
+                            </div>
+                            <div class="tonearm"></div> 
+                        </div>
+
+                        <!-- 当前歌曲 -->
+                        <div class="music-meta">
+                            <div class="music-text">
+                                <h3 id="musicTitle">未选择歌曲</h3>
+                                <p id="musicArtist">—</p>
+                            </div>
+                        </div>
+
+                        <!-- 播放控制 -->
+                        <div class="music-controls">
+                            <button type="button" id="prevBtn" aria-label="上一首">⏮</button>
+                            <button type="button" id="playBtn" aria-label="播放">▶</button>
+                            <button type="button" id="nextBtn" aria-label="下一首">⏭</button>
+                        </div>
+
+                        <!-- 真实进度条 -->
+                        <div class="music-progress">
+                            <span id="currentTime">0:00</span>
+                            <input
+                                    id="progress"
+                                    type="range"
+                                    min="0"
+                                    max="100"
+                                    value="0"
+                                    step="0.1"
+                                    aria-label="播放进度">
+                            <span id="duration">0:00</span>
+                        </div>
+
+                        <!-- 真实音量 -->
+                        <div class="music-volume">
+                            <button type="button" id="muteBtn" aria-label="静音">🔊</button>
+                            <input
+                                    id="volume"
+                                    type="range"
+                                    min="0"
+                                    max="100"
+                                    value="80"
+                                    aria-label="音量">
+                            <span id="volumeValue">80%</span>
+                        </div>
+
+                    </div>
+
+                    <!-- 曲目列表，由 JS 生成 -->
+                    <ul class="track-list" id="trackList"></ul>
+
+                </section>
+
+                <!-- 右侧背景切换圆点 -->
+                <div class="bg-switcher" aria-label="切换页面背景">
+
+                    <button
+                        class="bg-dot is-active"
+                        type="button"
+                        data-bg="assets/bg1.jpg"
+                        aria-label="切换到背景 1"
+                        aria-pressed="true">
+                    </button>
+
+                    <button
+                        class="bg-dot"
+                        type="button"
+                        data-bg="assets/bg2.jpg"
+                        aria-label="切换到背景 2"
+                        aria-pressed="false">
+                    </button>
+
+                    <button
+                        class="bg-dot"
+                        type="button"
+                        data-bg="assets/bg3.jpg"
+                        aria-label="切换到背景 3"
+                        aria-pressed="false">
+                    </button>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+    <!-- 全局迷你播放器 -->
+<div class="mini-player is-collapsed" id="miniPlayer">
+
+    <button
+            class="mini-handle"
+            id="miniHandle"
+            type="button"
+            aria-label="展开或收起播放器">
+
+        <span class="mini-grip"></span>
+        <span class="mini-cover" id="miniCover"></span>
+
+        <span class="mini-meta">
+            <strong id="miniTitle">未播放</strong>
+            <small id="miniArtist">—</small>
+        </span>
+
+    </button>
+
+    <div class="mini-controls">
+        <button type="button" id="miniPrev" aria-label="上一首">⏮</button>
+        <button type="button" id="miniPlay" aria-label="播放">▶</button>
+        <button type="button" id="miniNext" aria-label="下一首">⏭</button>
+    </div>
+
+    <div class="mini-extra">
+        <input
+                id="miniProgress"
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                step="0.1"
+                aria-label="迷你播放器进度">
+
+        <div class="mini-volume">
+            <button type="button" id="miniMute" aria-label="静音">🔊</button>
+            <input
+                    id="miniVolume"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="80"
+                    aria-label="迷你播放器音量">
+        </div>
+    </div>
+
+</div>
+
+<!-- 全局唯一音频对象 -->
+<audio id="audio" preload="metadata"></audio>
+
+    <!-- 手机端菜单遮罩 -->
+    <div class="scrim" id="scrim" hidden></div>
+
+    <!-- 未开发功能提示 -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    
+   <script src="js/music.js"></script>
+<script src="js/main.js"></script> 
+
+</body>
+</html>
