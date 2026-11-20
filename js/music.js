@@ -1,75 +1,38 @@
 /* =========================
    音乐列表
    扫描自 assets/music
-   共 63 首
+   共 26 首
    以后加歌：复制文件 + 在数组里加一项
    ========================= */
 
    const DEFAULT_COVER = "assets/covers/f.jpg";
 
    const TRACKS = [
-       { artist: "Ami Fujisaki(ActivePlanets、OSCAR PROMOTION)", title: "Close My Eyes", src: "assets/music/Ami Fujisaki(ActivePlanets、OSCAR PROMOTION) - Close My Eyes.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "Ceui", title: "Anistemi", src: "assets/music/Ceui - Anistemi.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "Ceui", title: "Asphodelus (アスフォデルス)", src: "assets/music/Ceui - Asphodelus (アスフォデルス).mp3", cover: "assets/covers/f.jpg" },
-       { artist: "Ceui", title: "Propylaia", src: "assets/music/Ceui - Propylaia.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "Ceui", title: "Snow Bird", src: "assets/music/Ceui - Snow Bird.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "Ceui", title: "Stigmata", src: "assets/music/Ceui - Stigmata.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "Ceui", title: "セレスティアラ (谷神星头饰)", src: "assets/music/Ceui - セレスティアラ (谷神星头饰).mp3", cover: "assets/covers/f.jpg" },
-       { artist: "Ceui-セイ-", title: "親愛なる世界へ (献给亲爱的世界)", src: "assets/music/Ceui-セイ- - 親愛なる世界へ (献给亲爱的世界).mp3", cover: "assets/covers/f.jpg" },
-       { artist: "Key Sounds Label", title: "夏の紫苑 (夏之紫苑)", src: "assets/music/Key Sounds Label - 夏の紫苑 (夏之紫苑).mp3", cover: "assets/covers/f.jpg" },
-       { artist: "Key Sounds Label", title: "風は微かに、熱を残し…", src: "assets/music/Key Sounds Label - 風は微かに、熱を残し….mp3", cover: "assets/covers/f.jpg" },
-       { artist: "monet", title: "ZYPRESSENの花束", src: "assets/music/monet - ZYPRESSENの花束.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "Nor", title: "Midnight Trip", src: "assets/music/Nor - Midnight Trip.mp3", cover: "assets/covers/f.jpg" },
+       { artist: "水月陵", title: "Summer Pockets", src: "assets/music/水月陵 - Summer Pockets.mp3", cover: "assets/covers/f.jpg" },
        { artist: "rionos", title: "ポケットをふくらませて (把口袋鼓起来)", src: "assets/music/rionos - ポケットをふくらませて (把口袋鼓起来).mp3", cover: "assets/covers/f.jpg" },
        { artist: "VISUAL ARTS Key Sound Label", title: "風の軌跡", src: "assets/music/VISUAL ARTS Key Sound Label - 風の軌跡.ogg", cover: "assets/covers/f.jpg" },
-       { artist: "YURiKA", title: "夜奏花", src: "assets/music/YURiKA - 夜奏花.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "YURiKA", title: "青き此方", src: "assets/music/YURiKA - 青き此方.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "ЯIRE、August", title: "Tears of Hope", src: "assets/music/ЯIRE、August - Tears of Hope.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "はな", title: "天球の下の奇蹟", src: "assets/music/はな - 天球の下の奇蹟.mp3", cover: "assets/covers/f.jpg" },
        { artist: "はな", title: "櫻ノ詩 (樱之诗)", src: "assets/music/はな - 櫻ノ詩 (樱之诗).mp3", cover: "assets/covers/f.jpg" },
-       { artist: "めと", title: "nostalgia", src: "assets/music/めと - nostalgia.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "中恵光城", title: "レイル・ロマネスク", src: "assets/music/中恵光城 - レイル・ロマネスク.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "山本美禰子", title: "輪廻", src: "assets/music/山本美禰子 - 輪廻.mp3", cover: "assets/covers/f.jpg" },
        { artist: "忍", title: "Reincarnation I", src: "assets/music/忍 - Reincarnation I.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "忍", title: "Reincarnation III", src: "assets/music/忍 - Reincarnation III.mp3", cover: "assets/covers/f.jpg" },
        { artist: "忍", title: "あさきゆめみし -world's end love Arrange-", src: "assets/music/忍 - あさきゆめみし -world's end love Arrange-.mp3", cover: "assets/covers/f.jpg" },
        { artist: "忍", title: "あさきゆめみし", src: "assets/music/忍 - あさきゆめみし.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "忍", title: "くすりゆびのぬくもり", src: "assets/music/忍 - くすりゆびのぬくもり.mp3", cover: "assets/covers/f.jpg" },
        { artist: "忍", title: "さくら、もゆ。 -orgel Arrange-", src: "assets/music/忍 - さくら、もゆ。 -orgel Arrange-.mp3", cover: "assets/covers/f.jpg" },
        { artist: "忍", title: "ほしめぐるまほう", src: "assets/music/忍 - ほしめぐるまほう.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "忍", title: "忘れたいはずのなにか", src: "assets/music/忍 - 忘れたいはずのなにか.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "忍", title: "桜雨", src: "assets/music/忍 - 桜雨.mp3", cover: "assets/covers/f.jpg" },
        { artist: "忍", title: "紅い瞳に映るセカイarrange", src: "assets/music/忍 - 紅い瞳に映るセカイarrange.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "忍", title: "終わりなきナガレの果てに", src: "assets/music/忍 - 終わりなきナガレの果てに.mp3", cover: "assets/covers/f.jpg" },
        { artist: "忍", title: "聖夜をめぐるまほう", src: "assets/music/忍 - 聖夜をめぐるまほう.mp3", cover: "assets/covers/f.jpg" },
        { artist: "忍", title: "輪廻 -Arrange-", src: "assets/music/忍 - 輪廻 -Arrange-.mp3", cover: "assets/covers/f.jpg" },
        { artist: "折戸伸治", title: "Childish White (稚白)", src: "assets/music/折戸伸治 - Childish White (稚白).mp3", cover: "assets/covers/f.jpg" },
        { artist: "折戸伸治", title: "夏の子守歌", src: "assets/music/折戸伸治 - 夏の子守歌.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "松本文紀", title: "ZYPRESSENは櫻に変わる", src: "assets/music/松本文紀 - ZYPRESSENは櫻に変わる.mp3", cover: "assets/covers/f.jpg" },
        { artist: "松本文紀", title: "この櫻ノ詩の下 (樱之诗)", src: "assets/music/松本文紀 - この櫻ノ詩の下 (樱之诗).mp3", cover: "assets/covers/f.jpg" },
-       { artist: "松本文紀", title: "こんなにも穏やかな時の流れ", src: "assets/music/松本文紀 - こんなにも穏やかな時の流れ.mp3", cover: "assets/covers/f.jpg" },
        { artist: "松本文紀", title: "ざくざくと散る錆びた夢", src: "assets/music/松本文紀 - ざくざくと散る錆びた夢.mp3", cover: "assets/covers/f.jpg" },
        { artist: "松本文紀", title: "夢の歩みを見上げて (仰望梦想的脚步)", src: "assets/music/松本文紀 - 夢の歩みを見上げて (仰望梦想的脚步).mp3", cover: "assets/covers/f.jpg" },
-       { artist: "松本文紀", title: "天球の奇蹟", src: "assets/music/松本文紀 - 天球の奇蹟.mp3", cover: "assets/covers/f.jpg" },
        { artist: "松本文紀", title: "守りたいもの", src: "assets/music/松本文紀 - 守りたいもの.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "松本文紀", title: "希望の前で待ち合わせ (在希望面前等待)", src: "assets/music/松本文紀 - 希望の前で待ち合わせ (在希望面前等待).mp3", cover: "assets/covers/f.jpg" },
        { artist: "松本文紀", title: "永遠を願うとき (祈求永恒)", src: "assets/music/松本文紀 - 永遠を願うとき (祈求永恒).mp3", cover: "assets/covers/f.jpg" },
        { artist: "松本文紀", title: "空を舞う月 空を舞う翼 (空中飞舞的月，空中飞舞的翅膀)", src: "assets/music/松本文紀 - 空を舞う月 空を舞う翼 (空中飞舞的月，空中飞舞的翅膀).mp3", cover: "assets/covers/f.jpg" },
-       { artist: "水月陵", title: "Summer Pockets", src: "assets/music/水月陵 - Summer Pockets.mp3", cover: "assets/covers/f.jpg" },
        { artist: "水月陵", title: "夜は短く、空は遠くて…", src: "assets/music/水月陵 - 夜は短く、空は遠くて….mp3", cover: "assets/covers/f.jpg" },
        { artist: "水月陵", title: "眩しさの中", src: "assets/music/水月陵 - 眩しさの中.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "水谷瑠奈", title: "羽のゆりかご", src: "assets/music/水谷瑠奈 - 羽のゆりかご.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "竹下智博", title: "Golden Hours", src: "assets/music/竹下智博 - Golden Hours.mp3", cover: "assets/covers/f.jpg" },
        { artist: "竹下智博", title: "夏を刻んだ、波の音は…", src: "assets/music/竹下智博 - 夏を刻んだ、波の音は….mp3", cover: "assets/covers/f.jpg" },
-       { artist: "虻川治", title: "drowsing morning", src: "assets/music/虻川治 - drowsing morning.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "虻川治", title: "I have you", src: "assets/music/虻川治 - I have you.mp3", cover: "assets/covers/f.jpg" },
        { artist: "虻川治", title: "under the moon (月下)", src: "assets/music/虻川治 - under the moon (月下).mp3", cover: "assets/covers/f.jpg" },
        { artist: "虻川治", title: "あの日に帰りたい", src: "assets/music/虻川治 - あの日に帰りたい.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "虻川治", title: "ぬくもりの時間", src: "assets/music/虻川治 - ぬくもりの時間.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "虻川治", title: "伝える心", src: "assets/music/虻川治 - 伝える心.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "虻川治", title: "明日への期待", src: "assets/music/虻川治 - 明日への期待.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "鈴木このみ", title: "Lasting Moment", src: "assets/music/鈴木このみ - Lasting Moment.mp3", cover: "assets/covers/f.jpg" },
-       { artist: "鈴木このみ", title: "アルカテイル", src: "assets/music/鈴木このみ - アルカテイル.mp3", cover: "assets/covers/f.jpg" },
        { artist: "麻枝准", title: "Sea, You & Me", src: "assets/music/麻枝准 - Sea, You & Me.mp3", cover: "assets/covers/f.jpg" }
    ];
 /* =========================
